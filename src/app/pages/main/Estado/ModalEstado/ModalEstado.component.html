@@ -1,0 +1,30 @@
+<form [formGroup]="frmEstado">
+
+  <div class="flex flex-wrap items-start gap-4">
+    <p-floatlabel variant="on" class="mb-6 mt-2">
+      <p-select [options]="listaCatPais" appendTo="body" class="w-60" [filter]="true" optionLabel="pais"
+        optionValue="idPais" formControlName="idPais" />
+      <label for="on_label">País</label>
+    </p-floatlabel>
+  </div>
+
+  <div class="flex flex-wrap items-start gap-4">
+    <p-floatlabel variant="on" class="mb-4">
+      <input pInputText style="width: 210px;" formControlName="estado" autocomplete="off" />
+      <label for="on_label">Estado</label>
+    </p-floatlabel>
+  </div>
+
+  <div class="flex flex-wrap items-start gap-4">
+    <p-floatlabel variant="on" class="mb-4">
+      <input pInputText style="width: 210px;" formControlName="siglas" autocomplete="off" />
+      <label for="on_label">Siglas</label>
+    </p-floatlabel>
+  </div>
+
+  <div [ngStyle]="{ 'margin': '0px 0px 0px ' + marginLeft }">
+    <p-button type="button" label={{boton}} [loading]="mostrarLoading" [disabled]="frmEstado.invalid"
+      (onClick)="guardar_editarEstado()" />
+  </div>
+  
+</form>

@@ -1,0 +1,3 @@
+::ng-deep p-inputNumber input {
+    width: 100px !important;
+  }

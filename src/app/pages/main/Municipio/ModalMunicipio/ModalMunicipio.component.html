@@ -1,0 +1,26 @@
+<form [formGroup]="frmMunicipio">
+    <div class="flex flex-wrap items-start gap-4">
+        <p-floatlabel variant="on" class="mb-6 mt-2">
+            <p-select [options]="listaCatPais" appendTo="body" [style]="{ width: '220px' }" [filter]="true" optionLabel="pais" optionValue="idPais" (onChange)="cargaCatEstado($event.value)" formControlName="idPais" />
+            <label for="on_label">País</label>
+        </p-floatlabel>
+    </div>
+
+    <div class="flex flex-wrap items-start gap-4">
+        <p-floatlabel variant="on" class="mb-6">
+            <p-select [options]="listaCatEstado" appendTo="body" [style]="{ width: '220px' }" [filter]="true" optionLabel="estado" optionValue="idEstado" formControlName="idEstado" />
+            <label for="on_label">Estado</label>
+        </p-floatlabel>
+    </div>
+
+    <div class="flex flex-wrap items-start gap-4">
+        <p-floatlabel variant="on" class="mb-4">
+            <input pInputText style="width: 220px" formControlName="municipio" autocomplete="off" />
+            <label for="on_label">Ciudad/Municipio</label>
+        </p-floatlabel>
+    </div>
+
+    <div [ngStyle]="{ margin: '0px 0px 0px ' + marginLeft }">
+        <p-button type="button" label="{{ boton }}" [loading]="mostrarLoading" [disabled]="frmMunicipio.invalid" (onClick)="guardar_editarMunicipio()" />
+    </div>
+</form>

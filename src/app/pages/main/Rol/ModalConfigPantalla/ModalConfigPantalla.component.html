@@ -1,0 +1,58 @@
+<div class="card">
+    <form [formGroup]="frmRol">
+        <div class="flex flex-wrap items-start gap-4 mb-4 mt-2">
+            <p-floatlabel variant="on" class="">
+                <p-select appendTo="body" [style.width]="'320px'" [options]="listaCatPantalla" optionLabel="pantalla" optionValue="idPantalla" formControlName="idPantalla" [filter]="true" />
+                <label>Pantalla</label>
+            </p-floatlabel>
+
+            <p-button label="Guardar" icon="pi pi-save" [loading]="mostrarLoading" (onClick)="guardarPantalla()" />
+        </div>
+        <p-toolbar styleClass="mb-2">
+            <!--  -->
+            <ng-template #start> </ng-template>
+
+            <ng-template #end>
+                <p-iconfield>
+                    <p-inputicon styleClass="pi pi-search" />
+                    <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" [style.width]="'150px'" placeholder="Buscar" />
+                </p-iconfield>
+            </ng-template>
+        </p-toolbar>
+        <!--  -->
+
+        <p-table
+            #dt
+            [value]="listaConsulRolPantalla"
+            [rows]="4"
+            [columns]="columnasTabla"
+            [paginator]="true"
+            [tableStyle]="{ width: 'auto' }"
+            [rowHover]="true"
+            dataKey="idPantalla"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+            [showCurrentPageReport]="true"
+        >
+            <ng-template #header>
+                <tr>
+                    <th pSortableColumn="pantalla" style="width: 260px">
+                        <span class="flex items-center gap-2">Pantalla <p-sortIcon field="pantalla" /> </span>
+                    </th>
+                    <th pSortableColumn="fecRegistro" style="width: 260px">
+                        <span class="flex items-center gap-2">Fec. Registro <p-sortIcon field="fecRegistro" /> </span>
+                    </th>
+                    <th></th>
+                </tr>
+                <ng-template #body let-pantalla>
+                    <tr>
+                        <td>{{ pantalla.pantalla }}</td>
+                        <td>{{ pantalla.fecRegistro }}</td>
+                        <td>
+                            <p-button icon="pi pi-trash" severity="danger" [rounded]="true" (onClick)="borrarPantalla($event, pantalla)" raised rounded pTooltip="Borrar" tooltipPosition="bottom" />
+                        </td>
+                    </tr>
+                </ng-template>
+            </ng-template>
+        </p-table>
+    </form>
+</div>

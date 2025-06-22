@@ -1,0 +1,70 @@
+<p-toast />
+
+<div class="card">
+    <p-toolbar styleClass="mb-6">
+        <ng-template #start>
+            <p-button label="Nuevo" icon="pi pi-plus" (onClick)="agregarUsuario()" class="mr-2" />
+        </ng-template>
+
+        <ng-template #end>
+            <!-- <p-button label="Export" icon="pi pi-upload" severity="secondary" /> -->
+        </ng-template>
+    </p-toolbar>
+
+    <p-table
+        #dt
+        [value]="listaUsuario"
+        [loading]="mostrarLoading"
+        [rows]="10"
+        [columns]="columnasTabla"
+        [paginator]="true"
+        class="table-auto w-full"
+        [rowHover]="true"
+        dataKey="idEmpresa"
+        [rowsPerPageOptions]="[5, 10, 20]"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        [showCurrentPageReport]="true"
+    >
+        <ng-template #caption>
+            <div class="flex items-center justify-between">
+                <h5 class="m-0"></h5>
+                <p-iconfield>
+                    <p-inputicon styleClass="pi pi-search" />
+                    <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Buscar" />
+                </p-iconfield>
+            </div>
+        </ng-template>
+        <!--  -->
+        <ng-template #header>
+            <tr>
+                <th pSortableColumn="nombreCompleto">
+                    <span class="flex items-center gap-2">Nombre <p-sortIcon field="nombreCompleto" /> </span>
+                </th>
+                <th pSortableColumn="usuario">
+                    <span class="flex items-center gap-2">Usuario <p-sortIcon field="usuario" /> </span>
+                </th>
+                <th pSortableColumn="rol">
+                    <span class="flex items-center gap-2">Rol <p-sortIcon field="rol" /> </span>
+                </th>
+                <th pSortableColumn="estatus">
+                    <span class="flex items-center gap-2">Estatus <p-sortIcon field="estatus" /> </span>
+                </th>
+                <th pSortableColumn="fecRegistro">
+                    <span class="flex items-center gap-2">Fec. Registro <p-sortIcon field="fecRegistro" /> </span>
+                </th>
+            </tr>
+        </ng-template>
+        <!--  -->
+        <ng-template #body let-usuario>
+            <tr>
+                <td style="width: 220px">
+                    <p-button type="button" label="{{ usuario.nombreCompleto }}" (onClick)="modificarUsuario(usuario)" text />
+                </td>
+                <td>{{ usuario.usuario }}</td>
+                <td>{{ usuario.rol }}</td>
+                <td><p-tag [value]="usuario.estatus" [severity]="usuario.isActivo ? 'success' : 'danger'"></p-tag></td>
+                <td>{{ usuario.fecRegistro }}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>

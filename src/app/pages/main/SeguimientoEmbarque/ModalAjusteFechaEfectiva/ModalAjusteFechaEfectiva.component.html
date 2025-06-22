@@ -1,0 +1,12 @@
+<form [formGroup]="frmAjuste">
+    <div class="flex flex-wrap items-start gap-4 mt-1 mb-4">
+        <p-floatlabel class="mt-1" variant="on">
+            <p-datepicker appendTo="body" [style]="{ width: '250px' }" dateFormat="dd/mm/yy" [minDate]="minDate" formControlName="fecEfectiva" [readonlyInput]="true" showIcon iconDisplay="input" />
+            <label>Fecha Efectiva</label>
+        </p-floatlabel>
+    </div>
+
+    <div style="margin: 0px 0px 0px 175px">
+        <p-button type="button" label="Guardar" [disabled]="frmAjuste.invalid" (onClick)="ajustarFecha()" />
+    </div>
+</form>

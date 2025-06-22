@@ -1,0 +1,99 @@
+<p-toast />
+<p-confirmdialog />
+
+<div class="card">
+    <p-toolbar styleClass="mb-6">
+        <ng-template #start>
+            <p-button label="Actualizar" icon="pi pi-refresh" (onClick)="cargaInfo()" class="mr-2" />
+        </ng-template>
+
+        <ng-template #end>
+            <p-button label="Export" icon="pi pi-upload" severity="secondary" />
+        </ng-template>
+    </p-toolbar>
+
+    <p-table
+        #dt
+        [value]="listaEmbarques"
+        [loading]="mostrarLoading"
+        [rows]="10"
+        [columns]="columnasTabla"
+        [paginator]="true"
+        class="table-auto w-full"
+        [rowHover]="true"
+        dataKey="idEmbarque"
+        [rowsPerPageOptions]="[10, 20, 50]"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        [showCurrentPageReport]="true"
+    >
+        <ng-template #caption>
+            <div class="flex items-center justify-between">
+                <h5 class="m-0"></h5>
+                <p-iconfield>
+                    <p-inputicon styleClass="pi pi-search" />
+                    <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" [style.width]="'300px'" placeholder="Buscar" />
+                </p-iconfield>
+            </div>
+        </ng-template>
+
+        <ng-template #header>
+            <tr>
+                <th pSortableColumn="referencia" style="font-weight: bold; width: 60px">
+                    <span class="flex items-center gap-2">Folio <p-sortIcon field="referencia" /> </span>
+                </th>
+                <th pSortableColumn="empresa" style="font-weight: bold">
+                    <span class="flex items-center gap-2">Empresa <p-sortIcon field="empresa" /> </span>
+                </th>
+                <th pSortableColumn="noUnidad" style="font-weight: bold">
+                    <span class="flex items-center gap-2">No. Unidad <p-sortIcon field="noUnidad" /> </span>
+                </th>
+                <th pSortableColumn="cliente" style="font-weight: bold">
+                    <span class="flex items-center gap-2">Cliente <p-sortIcon field="cliente" /> </span>
+                </th>
+                <th pSortableColumn="tipoUnidad" style="font-weight: bold">
+                    <span class="flex items-center gap-2">Tip. Unidad <p-sortIcon field="tipoUnidad" /> </span>
+                </th>
+                <th pSortableColumn="fecEfectiva" style="font-weight: bold">
+                    <span class="flex items-center gap-2">Fec. Efectiva <p-sortIcon field="fecEfectiva" /> </span>
+                </th>
+                <th pSortableColumn="estatus" style="font-weight: bold">
+                    <span class="flex items-center gap-2">Estatus <p-sortIcon field="estatus" /> </span>
+                </th>
+                <th pSortableColumn="venta" style="font-weight: bold">
+                    <span class="flex items-center gap-2">Venta<p-sortIcon field="venta" /> </span>
+                </th>
+                <th pSortableColumn="profit" style="font-weight: bold">
+                    <span class="flex items-center gap-2">Profit<p-sortIcon field="profit" /> </span>
+                </th>
+                <th pSortableColumn="profit" style="font-weight: bold">
+                    <span class="flex items-center gap-2">Marguen<p-sortIcon field="profit" /> </span>
+                </th>
+                <th style="width: 170px"></th>
+            </tr>
+        </ng-template>
+        <ng-template #body let-embarque>
+            <tr>
+                <td><p-button type="button" label="{{ embarque.referencia }}" (onClick)="detalleEmbarque(embarque)" text /></td>
+                <td>{{ embarque.empresa }}</td>
+                <td>{{ embarque.noUnidad }}</td>
+                <td><p-button type="button" label="{{ embarque.cliente }}" (onClick)="ajusteCliente(embarque)" text /></td>
+
+                <td>{{ embarque.tipoUnidad }}</td>
+
+                <td><p-button type="button" label="{{ embarque.fecEfectivaF }}" (onClick)="ajusteFechaEfectiva(embarque)" text /></td>
+
+                <td><p-button type="button" label="{{ embarque.estatus }}" text (onClick)="registroEstatus(embarque)" /></td>
+                <td><p-button type="button" label="{{ `${embarque.monto | currency: 'MXN' : 'symbol' : '1.2-2' : 'es-MX'} ${embarque.codMoneda}` }}" (onClick)="ajusteVenta(embarque)" text /></td>
+                <td><p-tag value="{{ embarque.utilidad | currency: 'MXN' : 'symbol' : '1.2-2' }}" severity="success"> </p-tag></td>
+
+                <td><p-tag [value]="(embarque.margen | number: '1.2-2') + '%'" [severity]="embarque.margen >= 8 ? 'success' : 'danger'"></p-tag></td>
+                <td>
+                    <p-button icon="pi pi-file-edit" severity="info" pTooltip="Registro Observaciones" (onClick)="datosObservaciones(embarque)" [rounded]="true" raised rounded />
+                    <p-button icon="pi pi-list-check" severity="help" pTooltip="Registro Seguimiento" (onClick)="registroSeguimiento(embarque)" [rounded]="true" raised rounded />
+                    <p-button icon="pi pi-file" severity="success" pTooltip="Datos Facturación" [rounded]="true" (onClick)="datosFacturacion(embarque)" raised />
+                    <p-button icon="pi pi-dollar" severity="warn" pTooltip="Venta Adicional" (onClick)="ventaAdicional(embarque)" [rounded]="true" raised rounded />
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>

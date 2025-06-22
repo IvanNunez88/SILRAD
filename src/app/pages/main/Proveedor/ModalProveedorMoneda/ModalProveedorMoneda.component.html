@@ -1,0 +1,57 @@
+<p-confirmdialog />
+<form [formGroup]="frmMoneda">
+    <div class="flex flex-wrap items-start gap-4 mb-4 mt-2">
+        <p-floatlabel variant="on" class="">
+            <p-select [options]="listaCatMoneda" appendTo="body" [style.width]="'354px'" [filter]="true" optionLabel="moneda" optionValue="idMoneda" formControlName="idMoneda" />
+            <label for="on_label">Moneda</label>
+        </p-floatlabel>
+
+        <p-button label="Guardar" icon="pi pi-save" [loading]="mostrarLoading" (onClick)="guardarMoneda()" />
+    </div>
+
+    <p-toolbar styleClass="mb-2">
+        <ng-template #start> </ng-template>
+
+        <ng-template #end>
+            <p-iconfield>
+                <p-inputicon styleClass="pi pi-search" />
+                <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" [style.width]="'150px'" placeholder="Buscar" />
+            </p-iconfield>
+        </ng-template>
+    </p-toolbar>
+
+    <p-table
+        #dt
+        [value]="listaConsulProveedorMoneda"
+        [rows]="2"
+        [columns]="columnasTabla"
+        [paginator]="true"
+        [tableStyle]="{ width: 'auto' }"
+        [rowHover]="true"
+        dataKey="idMoneda"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        [showCurrentPageReport]="true"
+    >
+        <ng-template #header>
+            <tr>
+                <th pSortableColumn="moneda" style="width: 260px">
+                    <span class="flex items-center gap-2">Moneda <p-sortIcon field="moneda" /> </span>
+                </th>
+                <th pSortableColumn="fecRegistro">
+                    <span class="flex items-center gap-2">Fec. Registro <p-sortIcon field="fecRegistro" /> </span>
+                </th>
+                <th></th>
+            </tr>
+        </ng-template>
+
+        <ng-template #body let-cliente>
+            <tr>
+                <td>{{ cliente.moneda }}</td>
+                <td>{{ cliente.fecRegistro }}</td>
+                <td>
+                    <p-button icon="pi pi-trash" severity="danger" [rounded]="true" (onClick)="borrarMoneda($event, cliente)" raised rounded pTooltip="Borrar" tooltipPosition="bottom" />
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</form>

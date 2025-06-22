@@ -1,0 +1,151 @@
+<form [formGroup]="frmEmbarque">
+    <div class="flex flex-wrap items-start gap-4 mt-2 mb-6">
+        <!--  -->
+        <p-floatlabel variant="on">
+            <input pInputText readonly style="width: 100px" pSize="large" formControlName="referencia" autocomplete="off" />
+            <label style="font-weight: bold; font-size: 11.5px">Referencia</label>
+        </p-floatlabel>
+        <!--  -->
+        <p-floatlabel variant="on">
+            <input pInputText readonly style="width: 290px" pSize="large" formControlName="empresa" autocomplete="off" />
+            <label style="font-weight: bold; font-size: 11.5px">Empresa</label>
+        </p-floatlabel>
+        <!--  -->
+        <p-floatlabel variant="on">
+            <input pInputText readonly style="width: 320px" pSize="large" formControlName="cliente" autocomplete="off" />
+            <label style="font-weight: bold; font-size: 11.5px">Cliente</label>
+        </p-floatlabel>
+        <!--  -->
+        <p-floatlabel variant="on">
+            <input pInputText readonly style="width: 110px" pSize="large" formControlName="tipoViaje" autocomplete="off" />
+            <label style="font-weight: bold; font-size: 11.5px">Tipo Viaje</label>
+        </p-floatlabel>
+        <!--  -->
+        <p-floatlabel variant="on">
+            <input pInputText readonly style="width: 155px" pSize="large" formControlName="estatus" autocomplete="off" />
+            <label style="font-weight: bold; font-size: 11.5px">Estatus</label>
+        </p-floatlabel>
+        <!--  -->
+    </div>
+    <div class="flex flex-wrap items-start gap-4 mb-6">
+        <!--  -->
+        <p-floatlabel variant="on">
+            <input pInputText readonly style="width: 220px" pSize="large" formControlName="tipoServicio" autocomplete="off" />
+            <label style="font-weight: bold; font-size: 11.5px">Tipo Servicio</label>
+        </p-floatlabel>
+        <!--  -->
+        <p-floatlabel variant="on">
+            <input pInputText readonly style="width: 219px" pSize="large" formControlName="tipoUnidad" autocomplete="off" />
+            <label style="font-weight: bold; font-size: 11.5px">Tipo Unidad</label>
+        </p-floatlabel>
+        <!--  -->
+        <p-floatlabel variant="on">
+            <input pInputText readonly style="width: 275px" pSize="large" formControlName="origen" autocomplete="off" />
+            <label style="font-weight: bold; font-size: 11.5px">Origen</label>
+        </p-floatlabel>
+        <!--  -->
+        <p-floatlabel variant="on">
+            <input pInputText readonly style="width: 275px" pSize="large" formControlName="destino" autocomplete="off" />
+            <label style="font-weight: bold; font-size: 11.5px">Destino</label>
+        </p-floatlabel>
+        <!--  -->
+    </div>
+    <!--  -->
+    <div class="flex flex-wrap items-start gap-4 mb-6">
+        <!--  -->
+        <p-floatlabel variant="on">
+            <input pInputText readonly style="width: 220px" pSize="large" formControlName="fecEfectiva" autocomplete="off" />
+            <label style="font-weight: bold; font-size: 11.5px">Fec. Efectiva</label>
+        </p-floatlabel>
+        <!--  -->
+        <p-floatlabel variant="on">
+            <input pInputText readonly style="width: 219px" pSize="large" formControlName="clasificacion" autocomplete="off" />
+            <label style="font-weight: bold; font-size: 11.5px">Clasificación</label>
+        </p-floatlabel>
+        <!--  -->
+        <p-floatlabel variant="on">
+            <input pInputText readonly style="width: 275px" pSize="large" formControlName="venta" autocomplete="off" />
+            <label style="font-weight: bold; font-size: 11.5px">Venta</label>
+        </p-floatlabel>
+        <!--  -->
+        <p-floatlabel variant="on">
+            <input pInputText readonly style="width: 130px" pSize="large" formControlName="utilidad" autocomplete="off" />
+            <label style="font-weight: bold; font-size: 11.5px">Profit</label>
+        </p-floatlabel>
+        <!--  -->
+        <p-floatlabel variant="on">
+            <input pInputText readonly style="width: 130px" pSize="large" formControlName="profit" autocomplete="off" />
+            <label style="font-weight: bold; font-size: 11.5px">Marguen</label>
+        </p-floatlabel>
+        <!--  -->
+    </div>
+    <div class="flex flex-wrap items-start gap-4 mb-6">
+        <p-floatlabel variant="on">
+            <input pInputText readonly style="width: 508px" pSize="large" formControlName="tipoMercancia" autocomplete="off" />
+            <label style="font-weight: bold; font-size: 11.5px">Tipo Mercancia</label>
+        </p-floatlabel>
+        <!--  -->
+        <p-floatlabel variant="on">
+            <input pInputText readonly style="width: 508px" pSize="large" formControlName="observaciones" autocomplete="off" />
+            <label style="font-weight: bold; font-size: 11.5px">Observaciones</label>
+        </p-floatlabel>
+    </div>
+
+    <div class="flex flex-wrap items-start gap-4 mb-6">
+        <p-button label="Consulta Documentación" (onClick)="revisarDocumentacion()" raised />
+    </div>
+
+    <span style="margin-right: auto; font-size: 20px; font-weight: bold"> Proveedor(es) </span>
+
+    <div class="card mt-2">
+        <p-table
+            #dt
+            [value]="listaConsulProveedorRuta"
+            [rows]="4"
+            [columns]="columnasTabla"
+            [paginator]="true"
+            class="table-auto w-full"
+            [rowHover]="true"
+            dataKey="idSolicitud"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+            [showCurrentPageReport]="true"
+        >
+            <ng-template #header>
+                <th pSortableColumn="proveedor" style="font-weight: bold; width: 230px">
+                    <span class="flex items-center gap-2">Proveedor <p-sortIcon field="proveedor" /> </span>
+                </th>
+                <th pSortableColumn="noUnidad" style="font-weight: bold; width: 100px">
+                    <span class="flex items-center gap-2">No. Unidad <p-sortIcon field="noUnidad" /> </span>
+                </th>
+                <th pSortableColumn="origen" style="font-weight: bold">
+                    <span class="flex items-center gap-2">Origen <p-sortIcon field="origen" /> </span>
+                </th>
+                <th pSortableColumn="destino" style="font-weight: bold">
+                    <span class="flex items-center gap-2">Destino <p-sortIcon field="destino" /> </span>
+                </th>
+                <th pSortableColumn="costo" style="font-weight: bold">
+                    <span class="flex items-center gap-2">Costo <p-sortIcon field="costo" /> </span>
+                </th>
+                <th></th>
+            </ng-template>
+            <ng-template #body let-embarque>
+                <tr>
+                    <td>
+                        <p-button type="button" label="{{ embarque.proveedor }}" text styleClass="w-full flex justify-start text-left" (onClick)="registrarNoUnidad(embarque)" />
+                    </td>
+                    <td>{{ embarque.noUnidad }}</td>
+                    <td><p-button type="button" label="{{ embarque.origen }}" text (onClick)="registroDirecciones(embarque, 1)" /></td>
+                    <td><p-button type="button" label="{{ embarque.destino }}" text (onClick)="registroDirecciones(embarque, 0)" /></td>
+                    <td>{{ `${embarque.tarifa | currency: 'MXN' : 'symbol' : '1.2-2' : 'es-MX'} ${embarque.codMoneda}` }}</td>
+                    <td>
+                        <p-button icon="pi pi-file-edit" severity="info" pTooltip="Generar CI ESPAÑOL" [rounded]="true" (onClick)="generarCIES()" raised rounded />
+                        <p-button icon="pi pi-file-edit" severity="help" pTooltip="Generar CI INGLES" [rounded]="true" (onClick)="generarCIIN()" raised rounded />
+                        <!-- <p-button icon="pi pi-list-check" severity="help" pTooltip="Registro Seguimiento" [rounded]="true" raised rounded />
+                        <p-button icon="pi pi-file" severity="success" pTooltip="Datos Facturación" [rounded]="true" raised /> -->
+                        <p-button icon="pi pi-dollar" severity="warn" pTooltip="Costo Adicional" [rounded]="true" (onClick)="registrarCostosAdicionales(embarque)" raised rounded />
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</form>

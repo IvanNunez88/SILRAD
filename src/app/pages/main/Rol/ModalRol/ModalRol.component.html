@@ -1,0 +1,19 @@
+<form [formGroup]="frmRol">
+    <div class="flex flex-wrap items-start gap-4 mb-4 mt-2">
+        <!--  -->
+        <p-floatlabel variant="on">
+            <input pInputText style="width: 200px" pSize="large" formControlName="rol" autocomplete="off" />
+            <label>Rol</label>
+        </p-floatlabel>
+        <!--  -->
+    </div>
+    <!--  -->
+    <div *ngIf="mostrarSwitch" style="margin: 0px 0px 5px 5px">
+        <p-toggleswitch formControlName="isEstatus" />
+        <label class="leading-none ml-2 text-xl align-baseline">Estatus</label>
+    </div>
+    <!--  -->
+    <div [ngStyle]="{ margin: '0px 0px 0px ' + marginLeft }">
+        <p-button type="button" label="{{ boton }}" [loading]="mostrarLoading" [disabled]="frmRol.invalid" (onClick)="guardar_editarRol()" />
+    </div>
+</form>

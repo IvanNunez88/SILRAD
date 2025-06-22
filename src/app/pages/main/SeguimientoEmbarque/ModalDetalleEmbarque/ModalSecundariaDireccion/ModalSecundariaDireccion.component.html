@@ -1,0 +1,150 @@
+<form [formGroup]="frmDireccion">
+    <div class="flex flex-wrap items-start gap-4 mb-6">
+        <p-button type="button" label="Consulta Dirección" (onClick)="catClienteDirecciones()" raised />
+    </div>
+
+    <div class="flex flex-wrap items-start gap-4 mt-2 mb-6">
+        <!--  -->
+        <p-floatlabel variant="on">
+            <input pInputText style="width: 170px" formControlName="almacen" pSize="large" autocomplete="off" />
+            <label style="font-weight: bold">Almacén</label>
+        </p-floatlabel>
+        <!--  -->
+        <p-floatlabel variant="on">
+            <input pInputText style="width: 255px" formControlName="calle" pSize="large" autocomplete="off" />
+            <label style="font-weight: bold">Calle</label>
+        </p-floatlabel>
+        <!--  -->
+        <p-floatlabel variant="on">
+            <input pInputText style="width: 205px" formControlName="colonia" pSize="large" autocomplete="off" />
+            <label style="font-weight: bold">Colonía</label>
+        </p-floatlabel>
+        <!--  -->
+        <p-floatlabel variant="on">
+            <input pInputText style="width: 92px" formControlName="cp" pSize="large" autocomplete="off" />
+            <label style="font-weight: bold">C.P.</label>
+        </p-floatlabel>
+        <!--  -->
+    </div>
+    <div class="flex flex-wrap items-start gap-4 mt-2 mb-6">
+        <!--  -->
+        <p-floatlabel variant="on">
+            <p-select appendTo="body" [style]="{ width: '375px' }" [options]="listaCatMunicipio" optionLabel="municipio" optionValue="idMunicipio" size="large" formControlName="idMunicipio" [filter]="true"> </p-select>
+            <label style="font-weight: bold">Ciudad/Municipio</label>
+        </p-floatlabel>
+        <!--  -->
+        <p-floatlabel variant="on">
+            <input pInputText style="width: 375px" formControlName="contacto" pSize="large" autocomplete="off" />
+            <label style="font-weight: bold">Contacto</label>
+        </p-floatlabel>
+    </div>
+
+    <div class="flex flex-wrap items-start gap-4 mt-2 mb-6">
+        <!--  -->
+        <p-floatlabel variant="on">
+            <p-datepicker appendTo="body" [style]="{ width: '245px' }" dateFormat="dd/mm/yy" [minDate]="minDate" [readonlyInput]="true" formControlName="fecEfectiva" size="large" showIcon iconDisplay="input"> </p-datepicker>
+            <label style="font-weight: bold">Fecha Efectiva</label>
+        </p-floatlabel>
+        <!--  -->
+        <p-floatlabel variant="on">
+            <p-datepicker appendTo="body" [style]="{ width: '245px' }" formControlName="hInicio" size="large" [timeOnly]="true" [showIcon]="true" iconDisplay="input">
+                <ng-template #inputicon let-clickCallBack="clickCallBack">
+                    <i class="pi pi-clock" (click)="clickCallBack($event)"></i>
+                </ng-template>
+            </p-datepicker>
+            <label style="font-weight: bold">Hr. Inicial </label>
+        </p-floatlabel>
+        <!--  -->
+        <p-floatlabel variant="on">
+            <p-datepicker appendTo="body" [style]="{ width: '245px' }" [timeOnly]="true" formControlName="hFinal" size="large" [showIcon]="true" iconDisplay="input">
+                <ng-template #inputicon let-clickCallBack="clickCallBack">
+                    <i class="pi pi-clock" (click)="clickCallBack($event)"></i>
+                </ng-template>
+            </p-datepicker>
+            <label style="font-weight: bold">Hr. Final</label>
+        </p-floatlabel>
+        <!--  -->
+    </div>
+
+    <div style="margin: 0px 0px 0px 686px">
+        <p-button type="button" label="Registrar " [loading]="mostrarLoading" (onClick)="registroDireccion()" [disabled]="frmDireccion.invalid" />
+    </div>
+
+    <span style="margin-right: auto; font-size: 20px; font-weight: bold"> Direcciones </span>
+
+    <div class="card mt-2">
+        <p-table
+            #dt
+            [value]="listaDireccion"
+            [loading]="mostrarLoading"
+            [rows]="10"
+            [columns]="columnasTabla"
+            [paginator]="true"
+            class="table-auto w-full"
+            [rowHover]="true"
+            dataKey="idRuta"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+            [showCurrentPageReport]="true"
+        >
+            <ng-template #header>
+                <tr>
+                    <!--  -->
+                    <th pSortableColumn="almacen">
+                        <span class="flex items-center gap-2">Almacén <p-sortIcon field="almacen" /> </span>
+                    </th>
+                    <!--  -->
+                    <th pSortableColumn="calle">
+                        <span class="flex items-center gap-2">Calle <p-sortIcon field="calle" /> </span>
+                    </th>
+                    <!--  -->
+                    <th pSortableColumn="colonia">
+                        <span class="flex items-center gap-2">Colonia <p-sortIcon field="colonia" /> </span>
+                    </th>
+                    <!--  -->
+                    <th pSortableColumn="cp">
+                        <span class="flex items-center gap-2">C.P. <p-sortIcon field="cp" /> </span>
+                    </th>
+                    <!--  -->
+                    <th pSortableColumn="ciudad">
+                        <span class="flex items-center gap-2">Ciudad<p-sortIcon field="ciudad" /> </span>
+                    </th>
+                    <!--  -->
+                    <th pSortableColumn="contacto">
+                        <span class="flex items-center gap-2">Contacto<p-sortIcon field="contacto" /> </span>
+                    </th>
+                    <!--  -->
+                    <th pSortableColumn="fecEfectiva">
+                        <span class="flex items-center gap-2">Fec. Efectiva<p-sortIcon field="fecEfectiva" /> </span>
+                    </th>
+                    <!--  -->
+                    <th pSortableColumn="hInicio">
+                        <span class="flex items-center gap-2">Hrs. Inicio<p-sortIcon field="hInicio" /> </span>
+                    </th>
+                    <!--  -->
+                    <th pSortableColumn="hFinal">
+                        <span class="flex items-center gap-2">Hrs. Final<p-sortIcon field="hFinal" /> </span>
+                    </th>
+                    <!--  -->
+                    <th></th>
+                </tr>
+            </ng-template>
+            <!--  -->
+            <ng-template #body let-direccion>
+                <tr>
+                    <td>{{ direccion.almacen }}</td>
+                    <td>{{ direccion.calle }}</td>
+                    <td>{{ direccion.colonia }}</td>
+                    <td>{{ direccion.cp }}</td>
+                    <td>{{ direccion.ciudad }}</td>
+                    <td>{{ direccion.contacto }}</td>
+                    <td>{{ direccion.fecEfectiva }}</td>
+                    <td>{{ direccion.hInicio }}</td>
+                    <td>{{ direccion.hFinal }}</td>
+                    <td>
+                        <p-button icon="pi pi-trash" severity="danger" [rounded]="true" (onClick)="borrarDireccion($event, direccion)" raised rounded pTooltip="Borrar Dirección" tooltipPosition="bottom"></p-button>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</form>

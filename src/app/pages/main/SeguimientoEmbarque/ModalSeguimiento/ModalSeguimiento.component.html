@@ -1,0 +1,56 @@
+<form [formGroup]="frmSeguimiento">
+    <div class="card">
+        <div class="flex flex-wrap items-start gap-4 mt-2 mb-6">
+            <!--  -->
+            <p-floatlabel variant="on">
+                <input pInputText style="width: 510px" formControlName="comentario" autocomplete="off" />
+                <label style="font-weight: bold">Comentario</label>
+            </p-floatlabel>
+            <!--  -->
+            <p-button label="Guardar" icon="pi pi-save" [loading]="mostrarLoading" (onClick)="guardarSeguimiento()" />
+            <!--  -->
+        </div>
+        <p-toolbar styleClass="mb-2">
+            <ng-template #start> </ng-template>
+
+            <ng-template #end>
+                <p-iconfield>
+                    <p-inputicon styleClass="pi pi-search" />
+                    <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" [style.width]="'250px'" placeholder="Buscar" />
+                </p-iconfield>
+            </ng-template>
+        </p-toolbar>
+        <p-table
+            #dt
+            [value]="listaConsultaEmbarqueSeguimiento"
+            [rows]="5"
+            [columns]="columnasTabla"
+            [paginator]="true"
+            [tableStyle]="{ width: 'auto' }"
+            [rowHover]="true"
+            dataKey="idCargo"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+            [showCurrentPageReport]="true"
+        >
+            <ng-template #header>
+                <th pSortableColumn="usuario" style="width: 100px; font-weight: bold">
+                    <span class="flex items-center gap-2">Usuario <p-sortIcon field="usuario" /> </span>
+                </th>
+                <th pSortableColumn="comentario" style="width: 800px; font-weight: bold">
+                    <span class="flex items-center gap-2">Comentarios <p-sortIcon field="comentario" /> </span>
+                </th>
+                <th pSortableColumn="fecRegistro" style="width: 200px; font-weight: bold">
+                    <span class="flex items-center gap-2">Fec. Registro <p-sortIcon field="fecRegistro" /> </span>
+                </th>
+            </ng-template>
+            <!--  -->
+            <ng-template #body let-embarque>
+                <tr>
+                    <td>{{ embarque.usuario }}</td>
+                    <td>{{ embarque.comentario }}</td>
+                    <td>{{ embarque.fecRegistro }}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</form>

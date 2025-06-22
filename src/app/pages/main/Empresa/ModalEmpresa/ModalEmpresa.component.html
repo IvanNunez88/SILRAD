@@ -1,0 +1,38 @@
+<form [formGroup]="frmEmpresa">
+    <div class="flex flex-wrap items-start gap-4">
+        <!--  -->
+        <p-floatlabel variant="on" class="mb-8 mt-2">
+            <input pInputText style="width: 380px" formControlName="empresa" autocomplete="off" />
+            <label for="on_label">Cliente</label>
+        </p-floatlabel>
+        <!--  -->
+        <p-floatlabel variant="on" class="mb-8 mt-2">
+            <input pInputText style="width: 150px" formControlName="rfc" autocomplete="off" />
+            <label for="on_label">RFC</label>
+        </p-floatlabel>
+        <!--  -->
+    </div>
+
+    <div class="flex flex-wrap items-start gap-4">
+        <p-floatlabel variant="on" class="mb-8">
+            <input pInputText style="width: 545px" formControlName="direc" autocomplete="off" />
+            <label for="on_label">Dirección</label>
+        </p-floatlabel>
+    </div>
+
+    <div class="flex flex-wrap items-start gap-4">
+        <p-floatlabel variant="on" class="mb-8">
+            <textarea rows="5" cols="74" pTextarea formControlName="dFactura" [autoResize]="true"></textarea>
+            <label for="on_label">Datos Facturación</label>
+        </p-floatlabel>
+    </div>
+
+    <div *ngIf="mostrarSwitch" class="p-field p-col-12 flex" style="margin: 0px 0px 5px 5px">
+        <p-toggleswitch formControlName="isEstatus" />
+        <label class="leading-none ml-2 text-xl align-baseline">Estatus</label>
+    </div>
+
+    <div [ngStyle]="{ margin: '0px 0px 0px ' + marginLeft }">
+        <p-button type="button" label="{{ boton }}" [loading]="mostrarLoading" [disabled]="frmEmpresa.invalid" (onClick)="guardar_editarEmpresa()" />
+    </div>
+</form>

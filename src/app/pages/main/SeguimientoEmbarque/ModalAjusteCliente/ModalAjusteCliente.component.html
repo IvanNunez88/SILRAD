@@ -1,0 +1,12 @@
+<form [formGroup]="frmAjuste">
+    <div class="flex flex-wrap items-start gap-4 mt-2 mb-4">
+        <p-floatlabel variant="on">
+            <p-select appendTo="body" [style]="{ width: '260px' }" [options]="listaCatCliente" optionLabel="cliente" optionValue="idCliente" formControlName="idCliente" [filter]="true" />
+            <label style="font-weight: bold; font-size: 11.5px">Cliente</label>
+        </p-floatlabel>
+    </div>
+
+    <div style="margin: 0px 0px 0px 186px">
+        <p-button type="button" label="Guardar" [disabled]="frmAjuste.invalid" (onClick)="ajusteCliente()" />
+    </div>
+</form>

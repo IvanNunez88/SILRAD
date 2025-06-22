@@ -1,0 +1,72 @@
+<form [formGroup]="frmVenta">
+    <div class="card">
+        <div class="flex flex-wrap items-start gap-4 mt-2 mb-6">
+            <!--  -->
+            <p-floatlabel variant="on">
+                <p-select [options]="listaCatCargo" appendTo="body" [style.width]="'345px'" [filter]="true" optionLabel="cargo" optionValue="idCargo" formControlName="idCargo" />
+                <label style="font-weight: bold">Cargo</label>
+            </p-floatlabel>
+            <!--  -->
+            <p-floatlabel variant="on">
+                <p-inputnumber [inputStyle]="{ width: '150px' }" mode="currency" currency="MXN" locale="es-MX" formControlName="venta" />
+                <label style="font-weight: bold">Venta</label>
+            </p-floatlabel>
+            <!--  -->
+            <p-button label="Guardar" icon="pi pi-save" [loading]="mostrarLoading" (onClick)="guardarVenta()" />
+            <!--  -->
+        </div>
+        <p-toolbar styleClass="mb-2">
+            <ng-template #start> </ng-template>
+
+            <ng-template #end>
+                <p-iconfield>
+                    <p-inputicon styleClass="pi pi-search" />
+                    <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" [style.width]="'250px'" placeholder="Buscar" />
+                </p-iconfield>
+            </ng-template>
+        </p-toolbar>
+
+        <p-table
+            #dt
+            [value]="listaConsulEmbarqueVenta"
+            [rows]="5"
+            [columns]="columnasTabla"
+            [paginator]="true"
+            [tableStyle]="{ width: 'auto' }"
+            [rowHover]="true"
+            dataKey="idCargo"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+            [showCurrentPageReport]="true"
+        >
+            <ng-template #header>
+                <tr>
+                    <th pSortableColumn="cargo" style="width: 200px; font-weight: bold">
+                        <span class="flex items-center gap-2">Cargo <p-sortIcon field="cargo" /> </span>
+                    </th>
+                    <th pSortableColumn="venta" style="width: 200px; font-weight: bold">
+                        <span class="flex items-center gap-2">Venta <p-sortIcon field="venta" /> </span>
+                    </th>
+                    <th pSortableColumn="usuario" style="width: 120px; font-weight: bold">
+                        <span class="flex items-center gap-2">Usuario <p-sortIcon field="usuario" /> </span>
+                    </th>
+                    <th pSortableColumn="fecRegistro" style="width: 200px; font-weight: bold">
+                        <span class="flex items-center gap-2">Fec. Registro <p-sortIcon field="fecRegistro" /> </span>
+                    </th>
+                    <th></th>
+                </tr>
+            </ng-template>
+            <!--  -->
+            <ng-template #body let-embarque>
+                <tr>
+                    <td>{{ embarque.cargo }}</td>
+                    <td>{{ `${embarque.monto | currency: 'MXN' : 'symbol' : '1.2-2' : 'es-MX'} ${embarque.codMoneda}` }}</td>
+                    <td>{{ embarque.usuario }}</td>
+                    <td>{{ embarque.fecRegistro }}</td>
+                    <td>
+                        <p-button icon="pi pi-trash" severity="danger" [rounded]="true" (onClick)="borrarVenta($event, embarque)" raised rounded pTooltip="Borrar" tooltipPosition="bottom" />
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</form>

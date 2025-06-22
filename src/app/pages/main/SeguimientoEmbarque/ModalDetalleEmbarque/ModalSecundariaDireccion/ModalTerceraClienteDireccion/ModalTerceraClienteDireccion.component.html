@@ -1,0 +1,175 @@
+<div class="card">
+    <form [formGroup]="frmDireccion">
+        <!--  -->
+        <p-toolbar styleClass="mb-6">
+            <ng-template #start>
+                <p-button label="Nuevo" icon="pi pi-plus" (onClick)="registroDireccion()" [disabled]="isEditing" class="mr-2" />
+            </ng-template>
+
+            <ng-template #end> </ng-template>
+        </p-toolbar>
+
+        <p-table
+            #dt
+            [value]="listaClienteDireccion"
+            [loading]="mostrarLoading"
+            editable="true"
+            [rows]="5"
+            [columns]="columnasTabla"
+            [paginator]="true"
+            class="table-auto w-full"
+            editMode="row"
+            [rowHover]="true"
+            dataKey="fecRegistro"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+            [showCurrentPageReport]="true"
+        >
+            <ng-template #caption>
+                <div class="flex items-center justify-between">
+                    <h5 class="m-0"></h5>
+                    <p-iconfield>
+                        <p-inputicon styleClass="pi pi-search" />
+                        <input pInputText type="text" [(ngModel)]="filtroGlobal" [ngModelOptions]="{ standalone: true }" (input)="onGlobalFilter($event)" placeholder="Buscar" [disabled]="isEditing" style="cursor: default; width: 300px" />
+                    </p-iconfield>
+                </div>
+            </ng-template>
+
+            <!--  -->
+
+            <ng-template #header>
+                <tr>
+                    <ng-container *ngIf="!isEditing; else noSortHeaders">
+                        <th pSortableColumn="almacen" style="cursor: pointer; font-weight: bold; width: 200px">
+                            Almacén
+                            <p-sortIcon field="almacen"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="calle" style="cursor: pointer; font-weight: bold; width: 200px">
+                            Calle
+                            <p-sortIcon field="calle"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="colonia" style="cursor: pointer; font-weight: bold; width: 200px">
+                            Colonia
+                            <p-sortIcon field="colonia"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="cp" style="cursor: pointer; font-weight: bold; width: 200px">
+                            C.P.
+                            <p-sortIcon field="cp"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="municipio" style="cursor: pointer; font-weight: bold; width: 200px">
+                            Municipio
+                            <p-sortIcon field="municipio"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="contacto" style="cursor: pointer; font-weight: bold; width: 200px">
+                            Contacto
+                            <p-sortIcon field="contacto"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="fecRegistro" style="cursor: pointer; font-weight: bold; width: 200px">
+                            Fec. Registro
+                            <p-sortIcon field="fecRegistro"></p-sortIcon>
+                        </th>
+                    </ng-container>
+                    <ng-template #noSortHeaders>
+                        <th style="font-weight: bold; cursor: default; width: 200px">Almacén</th>
+                        <th style="font-weight: bold; cursor: default; width: 200px">Calle</th>
+                        <th style="font-weight: bold; cursor: default; width: 200px">Colonia</th>
+                        <th style="font-weight: bold; cursor: default; width: 200px">C.P.</th>
+                        <th style="font-weight: bold; cursor: default; width: 200px">Municipio</th>
+                        <th style="font-weight: bold; cursor: default; width: 200px">Contacto</th>
+                        <th style="font-weight: bold; cursor: default; width: 200px">Fec. Registro</th>
+                    </ng-template>
+                    <th></th>
+                </tr>
+            </ng-template>
+            <ng-template #body let-direccion let-editing="editing">
+                <tr [pEditableRow]="direccion">
+                    <!--  -->
+                    <td>
+                        <p-cellEditor>
+                            <ng-template #input>
+                                <input pInputText type="text" style="width: 90px" formControlName="gAlmacen" />
+                            </ng-template>
+                            <ng-template #output>{{ direccion.almacen }}</ng-template>
+                        </p-cellEditor>
+                    </td>
+                    <!--  -->
+                    <td>
+                        <p-cellEditor>
+                            <ng-template #input>
+                                <input pInputText type="text" style="width: 90px" formControlName="gCalle" />
+                            </ng-template>
+                            <ng-template #output>{{ direccion.calle }}</ng-template>
+                        </p-cellEditor>
+                    </td>
+                    <!--  -->
+                    <td>
+                        <p-cellEditor>
+                            <ng-template #input>
+                                <input pInputText type="text" style="width: 120px" formControlName="gColonia" />
+                            </ng-template>
+                            <ng-template #output>{{ direccion.colonia }}</ng-template>
+                        </p-cellEditor>
+                    </td>
+                    <!--  -->
+                    <td>
+                        <p-cellEditor>
+                            <ng-template #input>
+                                <input pInputText type="text" style="width: 90px" formControlName="gCP" />
+                            </ng-template>
+                            <ng-template #output>{{ direccion.cp }}</ng-template>
+                        </p-cellEditor>
+                    </td>
+                    <!--  -->
+                    <td>
+                        <p-cellEditor>
+                            <ng-template #input>
+                                <p-select
+                                    inputId="on_label"
+                                    [options]="listaCatMunicipio"
+                                    optionLabel="municipio"
+                                    appendTo="body"
+                                    optionValue="idMunicipio"
+                                    formControlName="gIdMunicipio"
+                                    [loading]="mostrarLoading"
+                                    [filter]="true"
+                                    class="md:w-[190px]"
+                                />
+                            </ng-template>
+                            <ng-template #output> {{ direccion.municipio }} </ng-template>
+                        </p-cellEditor>
+                    </td>
+                    <!--  -->
+                    <td>
+                        <p-cellEditor>
+                            <ng-template #input>
+                                <input pInputText type="text" formControlName="gContacto" />
+                            </ng-template>
+                            <ng-template #output>{{ direccion.contacto }}</ng-template>
+                        </p-cellEditor>
+                    </td>
+                    <!--  -->
+                    <td>
+                        {{ direccion.fecRegistro }}
+                    </td>
+                    <!--  -->
+                    <td>
+                        <div class="flex items-center justify-center gap-2">
+                            <!-- Botón EDITAR -->
+                            <p-button *ngIf="!editing && !isEditing" type="button" pButton pRipple icon="pi pi-pencil" (onClick)="editarRegistro(direccion)" pTooltip="Editar" tooltipPosition="bottom" raised rounded severity="primary" />
+
+                            <!-- Botón REGISTRAR -->
+                            <p-button *ngIf="editing" type="button" pButton pRipple icon="pi pi-check" (onClick)="actualizarRegistro($event, direccion)" pTooltip="Registrar" tooltipPosition="bottom" raised rounded severity="secondary" />
+                            <!-- Botón CANCELAR -->
+                            <p-button *ngIf="editing" type="button" pButton pRipple icon="pi pi-times" (onClick)="cancelar($event, direccion)" pTooltip="Cancelar" tooltipPosition="bottom" raised rounded severity="secondary" />
+                            <!-- Botón BORRAR -->
+                            <p-button icon="pi pi-trash" severity="danger" [rounded]="true" raised pTooltip="Borrar" tooltipPosition="bottom" (onClick)="borrarRegistro($event, direccion)" [disabled]="isEditing" />
+
+                            <p-button icon="pi pi-download" severity="warn" [rounded]="true" raised pTooltip="Utilizar" tooltipPosition="bottom" (onClick)="utilizardireccion(direccion)" />
+                        </div>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+
+        <!--  -->
+    </form>
+</div>

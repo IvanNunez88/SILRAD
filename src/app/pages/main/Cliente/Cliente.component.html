@@ -1,0 +1,104 @@
+<p-toast />
+<p-confirmdialog />
+
+<div class="card">
+    <p-toolbar styleClass="mb-6">
+        <ng-template #start>
+            <p-button label="Nuevo" icon="pi pi-plus" (click)="agregarCliente()" class="mr-2" />
+        </ng-template>
+
+        <ng-template #end>
+            <p-button label="Export" icon="pi pi-upload" severity="secondary" />
+        </ng-template>
+    </p-toolbar>
+
+    <p-table
+        #dt
+        [value]="listaCliente"
+        [loading]="mostrarLoading"
+        [rows]="10"
+        [columns]="columnasTabla"
+        [paginator]="true"
+        class="table-auto w-full"
+        [rowHover]="true"
+        dataKey="idCliente"
+        [rowsPerPageOptions]="[10, 20, 50]"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        [showCurrentPageReport]="true"
+    >
+        <ng-template #caption>
+            <div class="flex items-center justify-between">
+                <h5 class="m-0"></h5>
+                <p-iconfield>
+                    <p-inputicon styleClass="pi pi-search" />
+                    <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" [style.width]="'300px'" placeholder="Buscar" />
+                </p-iconfield>
+            </div>
+        </ng-template>
+
+        <ng-template #header>
+            <tr>
+                <th pSortableColumn="idCliente">
+                    <span class="flex items-center gap-2"># Cliente <p-sortIcon field="idCliente" /> </span>
+                </th>
+                <th pSortableColumn="cliente">
+                    <span class="flex items-center gap-2">Cliente <p-sortIcon field="cliente" /> </span>
+                </th>
+                <th pSortableColumn="vendedor">
+                    <span class="flex items-center gap-2">Vendedor <p-sortIcon field="vendedor" /></span>
+                </th>
+                <th pSortableColumn="csr">
+                    <span class="flex items-center gap-2">CSR <p-sortIcon field="csr" /></span>
+                </th>
+                <th pSortableColumn="contacto">
+                    <span class="flex items-center gap-2">Contacto <p-sortIcon field="contacto" /></span>
+                </th>
+                <th pSortableColumn="tel">
+                    <span class="flex items-center gap-2"> Telef <p-sortIcon field="tel" /></span>
+                </th>
+                <th pSortableColumn="correo">
+                    <span class="flex items-center gap-2">
+                        Correo
+                        <p-sortIcon field="correo"
+                    /></span>
+                </th>
+                <th pSortableColumn="diasCredito" style="width: 12rem">
+                    <span class="flex items-center gap-2">
+                        D. Crédito
+                        <p-sortIcon field="diasCredito"
+                    /></span>
+                </th>
+                <th pSortableColumn="estatus" style="min-width: 8rem">
+                    <span class="flex items-center gap-2">
+                        Estatus
+                        <p-sortIcon field="estatus"
+                    /></span>
+                </th>
+                <th style="min-width: 12rem"></th>
+            </tr>
+        </ng-template>
+        <!--  -->
+        <ng-template #body let-cliente>
+            <tr>
+                <td style="width: 130px">{{ cliente.idCliente }}</td>
+                <td style="width: 620px">
+                    <p-button type="button" label="{{ cliente.cliente }}" (click)="modificarCliente(cliente)" text />
+                </td>
+                <td>
+                    <p-button type="button" label="{{ cliente.vendedor }}" text />
+                </td>
+                <td>{{ cliente.csr }}</td>
+                <td style="width: 290px">{{ cliente.contacto }}</td>
+                <td style="width: 200px">{{ cliente.tel }}</td>
+                <td style="width: 200px">{{ cliente.correo }}</td>
+                <td>{{ cliente.diasCredito }}</td>
+                <td><p-tag [value]="cliente.estatus" [severity]="cliente.estatus === 'ACTIVO' ? 'success' : 'danger'"></p-tag></td>
+                <td>
+                    <p-button icon="pi pi-dollar" severity="help" pTooltip="Registro Moneda" (click)="configurarMoneda(cliente)" [rounded]="true" raised rounded />
+                    <p-button icon="pi pi-building-columns" severity="danger" pTooltip="Registro Empresa Facturar" (click)="configuraEmpresaFactura(cliente)" [rounded]="true" raised />
+                    <p-button icon="pi pi-file-plus" severity="primary" pTooltip="Registro Documentación" [rounded]="true" (click)="configurarDocumentos(cliente)" raised rounded />
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>

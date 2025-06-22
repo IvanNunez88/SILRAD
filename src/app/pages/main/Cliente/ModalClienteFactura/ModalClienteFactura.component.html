@@ -1,0 +1,58 @@
+<form [formGroup]="frmEmpresa">
+    <div class="card">
+        <div class="flex flex-wrap items-start gap-4">
+            <p-floatlabel class="mt-1" variant="on" class="mb-8 mt-2">
+                <p-select [options]="listaCatEmpresa" appendTo="body" [style.width]="'390px'" [filter]="true" optionLabel="empresa" optionValue="idEmpresa" formControlName="idEmpresa" />
+                <label style="font-weight: bold">Empresa</label>
+            </p-floatlabel>
+
+            <p-button label="Guardar" icon="pi pi-save" class="mb-8 mt-2" [loading]="mostrarLoading" (Click)="guardarEmpresa()" />
+        </div>
+
+        <p-toolbar styleClass="mb-2">
+            <ng-template #start> </ng-template>
+
+            <ng-template #end>
+                <p-iconfield>
+                    <p-inputicon styleClass="pi pi-search" />
+                    <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" [style.width]="'150px'" placeholder="Buscar" />
+                </p-iconfield>
+            </ng-template>
+        </p-toolbar>
+
+        <p-table
+            #dt
+            [value]="listaConsulClienteEmpresa"
+            [rows]="3"
+            [columns]="columnasTabla"
+            [paginator]="true"
+            [tableStyle]="{ width: 'auto' }"
+            [rowHover]="true"
+            dataKey="id"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+            [showCurrentPageReport]="true"
+        >
+            <ng-template #header>
+                <tr>
+                    <th pSortableColumn="empresa" style="width: 260px; font-weight: bold">
+                        <span class="flex items-center gap-2">Empresa <p-sortIcon field="empresa" /> </span>
+                    </th>
+                    <th pSortableColumn="fecRegistro" style="width: 190px; font-weight: bold">
+                        <span class="flex items-center gap-2">Fec. Registro <p-sortIcon field="fecRegistro" /> </span>
+                    </th>
+                    <th></th>
+                </tr>
+            </ng-template>
+
+            <ng-template #body let-cliente>
+                <tr>
+                    <td>{{ cliente.empresa }}</td>
+                    <td>{{ cliente.fecRegistro }}</td>
+                    <td>
+                        <p-button icon="pi pi-trash" severity="danger" [rounded]="true" (Click)="borrarEmpresa($event, cliente)" raised rounded pTooltip="Borrar" tooltipPosition="bottom" />
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</form>

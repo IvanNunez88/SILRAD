@@ -1,0 +1,68 @@
+<form [formGroup]="frmProveedor">
+    <div class="flex flex-wrap items-start gap-4 mt-2">
+        <!--  -->
+        <p-floatlabel variant="on" class="mb-8">
+            <input pInputText style="width: 370px" formControlName="proveedor" autocomplete="off" />
+            <label for="on_label">Proveedor</label>
+        </p-floatlabel>
+
+        <!--  -->
+        <p-floatlabel variant="on" class="mb-8">
+            <input pInputText style="width: 141px" formControlName="rfc" autocomplete="off" />
+            <label for="on_label">RFC</label>
+        </p-floatlabel>
+        <!--  -->
+        <p-floatlabel variant="on" class="mb-8">
+            <p-inputNumber formControlName="dCredito" [inputStyle]="{ width: '100px' }" autocomplete="off" [min]="0" />
+            <label for="on_label">Días Crédito</label>
+        </p-floatlabel>
+    </div>
+
+    <div class="flex flex-wrap items-start gap-4">
+        <!--  -->
+        <p-floatlabel class="mt-1" variant="on" class="mb-8">
+            <p-select [options]="listaCatPais" appendTo="body" [style]="{ width: '201px' }" [filter]="true" optionLabel="pais" optionValue="idPais" formControlName="idPais" />
+            <label for="on_label">País</label>
+        </p-floatlabel>
+        <!--  -->
+        <p-floatlabel variant="on" class="mb-8">
+            <input pInputText style="width: 201px" formControlName="estado" autocomplete="off" />
+            <label for="on_label">Estado</label>
+        </p-floatlabel>
+        <!--  -->
+        <p-floatlabel variant="on" class="mb-8">
+            <input pInputText style="width: 208px" formControlName="municipio" autocomplete="off" />
+            <label for="on_label">Municipio/Ciudad</label>
+        </p-floatlabel>
+        <!--  -->
+    </div>
+
+    <div class="flex flex-wrap items-start gap-4">
+        <!--  -->
+        <p-floatlabel variant="on" class="mb-8">
+            <input pInputText style="width: 305px" formControlName="calle" autocomplete="off" />
+            <label for="on_label">Calle</label>
+        </p-floatlabel>
+        <!--  -->
+
+        <p-floatlabel variant="on" class="mb-8">
+            <input pInputText style="width: 215px" formControlName="colonia" autocomplete="off" />
+            <label for="on_label">Colonia</label>
+        </p-floatlabel>
+        <!--  -->
+        <p-floatlabel variant="on" class="mb-8">
+            <input pInputText style="width: 90px" formControlName="cp" autocomplete="off" />
+            <label for="on_label">CP</label>
+        </p-floatlabel>
+        <!--  -->
+    </div>
+
+    <div *ngIf="mostrarSwitch" style="margin: 0px 0px 5px 5px">
+        <p-toggleswitch formControlName="isEstatus" />
+        <label class="leading-none ml-2 text-xl align-baseline">Estatus</label>
+    </div>
+
+    <div [ngStyle]="{ margin: '0px 0px 0px ' + marginLeft }">
+        <p-button type="button" label="{{ boton }}" [loading]="mostrarLoading" [disabled]="frmProveedor.invalid" (onClick)="guardar_editarProveedor()" />
+    </div>
+</form>

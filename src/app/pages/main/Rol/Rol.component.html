@@ -1,0 +1,63 @@
+<p-toast />
+<p-confirmdialog />
+
+<div class="card">
+    <p-toolbar styleClass="mb-6">
+        <ng-template #start>
+            <p-button label="Nuevo" icon="pi pi-plus" (click)="agregarRol()" class="mr-2" />
+        </ng-template>
+
+        <ng-template #end>
+            <!-- <p-button label="Export" icon="pi pi-upload" severity="secondary" /> -->
+        </ng-template>
+    </p-toolbar>
+
+    <p-table
+        #dt
+        [value]="listaRol"
+        [loading]="mostrarLoading"
+        [rows]="10"
+        [columns]="columnasTabla"
+        [paginator]="true"
+        class="table-auto w-full"
+        [rowHover]="true"
+        dataKey="idCliente"
+        [rowsPerPageOptions]="[10, 20, 50]"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        [showCurrentPageReport]="true"
+    >
+        <ng-template #caption>
+            <div class="flex items-center justify-between">
+                <h5 class="m-0"></h5>
+                <p-iconfield>
+                    <p-inputicon styleClass="pi pi-search" />
+                    <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" [style.width]="'300px'" placeholder="Buscar" />
+                </p-iconfield>
+            </div>
+        </ng-template>
+        <!--  -->
+        <ng-template #header>
+            <tr>
+                <th pSortableColumn="rol">
+                    <span class="flex items-center gap-2">Rol <p-sortIcon field="rol" /> </span>
+                </th>
+                <th pSortableColumn="rol">
+                    <span class="flex items-center gap-2">estatus <p-sortIcon field="rol" /> </span>
+                </th>
+                <th></th>
+            </tr>
+        </ng-template>
+        <!--  -->
+        <ng-template #body let-rol>
+            <tr>
+                <td>
+                    <p-button type="button" label="{{ rol.rol }}" (click)="modificarRol(rol)" text />
+                </td>
+                <td><p-tag [value]="rol.estatus" [severity]="rol.isActivo ? 'success' : 'danger'"></p-tag></td>
+                <td>
+                    <p-button icon="pi pi-desktop" severity="info" pTooltip="Configurar Pantalla" (click)="configurarPantalla(rol)" [rounded]="true" raised rounded />
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>

@@ -1,0 +1,26 @@
+<form [formGroup]="frmPais">
+
+  <div class="flex flex-wrap items-start gap-4">
+
+    <p-floatlabel variant="on" class="mb-8 mt-2">
+      <input pInputText style="width: 250px;" formControlName="pais" autocomplete="off" />
+      <label for="on_label">País</label>
+    </p-floatlabel>
+
+  </div>
+
+  <div class="flex flex-wrap items-start gap-4">
+
+    <p-floatlabel variant="on" class="mb-6">
+      <input pInputText style="width: 250px;" formControlName="siglas" autocomplete="off" />
+      <label for="on_label">Siglas</label>
+    </p-floatlabel>
+
+  </div>
+
+  <div [ngStyle]="{ 'margin': '0px 0px 0px ' + marginLeft }">
+    <p-button type="button" label={{boton}} [loading]="mostrarLoading" [disabled]="frmPais.invalid"
+      (onClick)="guardar_editarPais()" />
+  </div>
+
+</form>

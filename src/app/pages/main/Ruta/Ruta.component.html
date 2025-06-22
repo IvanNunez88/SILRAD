@@ -1,0 +1,112 @@
+<p-toast />
+
+<form [formGroup]="frmRuta">
+    <div class="card">
+        <p-toolbar styleClass="mb-6">
+            <ng-template #start>
+                <p-button label="Nuevo" icon="pi pi-plus" class="mr-2" (onClick)="registarRuta()" />
+            </ng-template>
+
+            <ng-template #end>
+                <!-- <p-button label="Export" icon="pi pi-upload" severity="secondary" /> -->
+            </ng-template>
+        </p-toolbar>
+
+        <p-table
+            #dt
+            [value]="listaRuta"
+            [loading]="mostrarLoading"
+            [rows]="10"
+            [columns]="columnasTabla"
+            [paginator]="true"
+            class="table-auto w-full"
+            [rowHover]="true"
+            dataKey="idRuta"
+            [rowsPerPageOptions]="[5, 10, 20]"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+            [showCurrentPageReport]="true"
+        >
+            <ng-template #caption>
+                <div class="flex flex-wrap items-start gap-2">
+                    <!--  -->
+                    <p-floatlabel variant="on">
+                        <p-select appendTo="body" [options]="listaCatProveedor" optionLabel="proveedor" optionValue="idProveedor" formControlName="idProveedor" [style]="{ width: '250px' }" [filter]="true" />
+                        <label>Proveedor</label>
+                    </p-floatlabel>
+                    <!--  -->
+                    <p-floatlabel variant="on">
+                        <p-select appendTo="body" [options]="listaCatMunicipio" optionLabel="municipio" optionValue="idMunicipio" formControlName="idOrigen" [style]="{ width: '200px' }" [filter]="true" />
+                        <label>Origen</label>
+                    </p-floatlabel>
+                    <!--  -->
+                    <p-floatlabel variant="on">
+                        <p-select appendTo="body" [options]="listaCatMunicipio" optionLabel="municipio" optionValue="idMunicipio" formControlName="idDestino" [style]="{ width: '200px' }" [filter]="true" />
+                        <label >Destino</label>
+                    </p-floatlabel>
+                    <!--  -->
+                    <p-button label="Cargar" icon="pi pi-reply" class="ml-2" (onClick)="cargaInfo()" />
+                    <!--  -->
+                </div>
+
+                <div class="flex items-center justify-between">
+                    <h5 class="m-0"></h5>
+                    <p-iconfield>
+                        <p-inputicon styleClass="pi pi-search" />
+                        <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Buscar" />
+                    </p-iconfield>
+                </div>
+            </ng-template>
+
+            <ng-template #header>
+                <tr>
+                    <th pSortableColumn="idRuta">
+                        <span class="flex items-center gap-2"># Ruta <p-sortIcon field="idRuta" /> </span>
+                    </th>
+                    <th pSortableColumn="proveedor">
+                        <span class="flex items-center gap-2">Proveedor <p-sortIcon field="proveedor" /> </span>
+                    </th>
+                    <th pSortableColumn="tipoUnidad">
+                        <span class="flex items-center gap-2">T. Unidad <p-sortIcon field="tipoUnidad" /> </span>
+                    </th>
+                    <th pSortableColumn="origen">
+                        <span class="flex items-center gap-2">Origen<p-sortIcon field="origen" /> </span>
+                    </th>
+                    <th pSortableColumn="destino">
+                        <span class="flex items-center gap-2">Destino<p-sortIcon field="destino" /> </span>
+                    </th>
+                    <th pSortableColumn="moneda">
+                        <span class="flex items-center gap-2">Moneda<p-sortIcon field="moneda" /> </span>
+                    </th>
+                    <th pSortableColumn="tarifa">
+                        <span class="flex items-center gap-2">Tarifa<p-sortIcon field="tarifa" /> </span>
+                    </th>
+                    <th pSortableColumn="comentario">
+                        <span class="flex items-center gap-2">Comentario<p-sortIcon field="comentario" /> </span>
+                    </th>
+                    <th pSortableColumn="estatus">
+                        <span class="flex items-center gap-2">Estatus<p-sortIcon field="estatus" /> </span>
+                    </th>
+                    <th style="min-width: 12rem"></th>
+                </tr>
+            </ng-template>
+
+            <ng-template #body let-ruta>
+                <tr>
+                    <td>{{ ruta.idRuta }}</td>
+                    <td>{{ ruta.proveedor }}</td>
+                    <td>{{ ruta.tipoUnidad }}</td>
+                    <td>{{ ruta.origen }}</td>
+                    <td>{{ ruta.destino }}</td>
+                    <td>{{ ruta.moneda }}</td>
+                    <td>{{ `${ruta.tarifa | currency: 'MXN' : 'symbol' : '1.2-2' : 'es-MX'}` }}</td>
+                    <td>{{ ruta.comentario }}</td>
+                    <td><p-tag [value]="ruta.estatus" [severity]="ruta.isActivo ? 'success' : 'danger'"></p-tag></td>
+                    <td>
+                        <p-button icon="pi pi-pencil" pTooltip="Editar ruta" [rounded]="true" (onClick)="actualizarRuta(ruta)" raised rounded />
+                        <!-- <p-button icon="pi pi-trash" severity="danger" pTooltip="Cancelar Solicitud" [rounded]="true" raised /> -->
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</form>

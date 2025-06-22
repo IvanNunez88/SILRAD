@@ -1,0 +1,54 @@
+<form [formGroup]="frmSolicitud">
+    <div class="flex flex-wrap items-start gap-4 mt-2">
+        <!--  -->
+        <p-floatlabel class="mt-1" variant="on" class="mb-8">
+            <p-select appendTo="body" [style]="{ width: '300px' }" [options]="listaCatCliente" optionLabel="cliente" optionValue="idCliente" formControlName="idCliente" [filter]="true" />
+            <label>Cliente</label>
+        </p-floatlabel>
+        <!--  -->
+        <p-floatlabel class="mt-1" variant="on" class="mb-8">
+            <p-select appendTo="body" [style]="{ width: '230px' }" [options]="listaCatClasificacion" optionLabel="clasificacion" optionValue="idClasificacion" formControlName="idClasificacion" [filter]="true" />
+            <label>Clasificación</label>
+        </p-floatlabel>
+        <!--  -->
+        <p-floatlabel class="mt-1" variant="on" class="mb-8">
+            <p-select appendTo="body" [style]="{ width: '210px' }" [options]="listaCatTipoServicio" optionLabel="tipoServicio" optionValue="idTipoServicio" formControlName="idTipoServicio" [filter]="true" />
+            <label>Tipo Servicio</label>
+        </p-floatlabel>
+        <!--  -->
+    </div>
+    <!--  -->
+    <div class="flex flex-wrap items-start gap-4 mt-2">
+        <p-floatlabel class="mt-1" variant="on" class="mb-8">
+            <p-select appendTo="body" [style]="{ width: '240px' }" [options]="listaCatModalidad" optionLabel="modalidad" optionValue="idModalidad" formControlName="idModalidad" [filter]="true" />
+            <label>Modalidad</label>
+        </p-floatlabel>
+        <!--  -->
+        <p-floatlabel class="mt-1" variant="on" class="mb-8">
+            <p-select appendTo="body" [style]="{ width: '250px' }" [options]="listaCatMunicipio" optionLabel="municipio" optionValue="idMunicipio" formControlName="idOrigen" [filter]="true" />
+            <label>Origen</label>
+        </p-floatlabel>
+
+        <p-floatlabel class="mt-1" variant="on" class="mb-8">
+            <p-select appendTo="body" [style]="{ width: '250px' }" [options]="listaCatMunicipio" optionLabel="municipio" optionValue="idMunicipio" formControlName="idDestino" [filter]="true" />
+            <label>Destino</label>
+        </p-floatlabel>
+    </div>
+
+    <div class="flex flex-wrap items-start gap-4 mt-2">
+        <!--  -->
+        <p-floatlabel variant="on" class="mb-8">
+            <input pInputText style="width: 377px" formControlName="contacto" autocomplete="off" />
+            <label for="on_label">Contacto</label>
+        </p-floatlabel>
+        <!--  -->
+        <p-floatlabel variant="on" class="mb-8">
+            <input pInputText style="width: 377px" formControlName="correo" autocomplete="off" />
+            <label for="on_label">Correo</label>
+        </p-floatlabel>
+        <!--  -->
+    </div>
+    <div [ngStyle]="{ margin: '0px 0px 0px ' + marginLeft }">
+        <p-button type="button" label="{{ boton }}" [loading]="mostrarLoading" [disabled]="frmSolicitud.invalid" [disabled]="frmSolicitud.invalid" (onClick)="guardar_editarSolicitud()" />
+    </div>
+</form>
